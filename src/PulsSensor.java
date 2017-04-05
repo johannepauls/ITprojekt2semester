@@ -12,11 +12,14 @@ public class PulsSensor extends Sensor implements Runnable {
     static String[] dataArray;
     static int last;
     static ArrayList<Double> valueArray = new ArrayList<Double>();
-    static Double value;
-    static Double pulseValue;
+    static double value;
+    static double pulseValue;
     static boolean found;
     static boolean a;
-    static int n = 0;
+    static double n = 0;
+    static double antalmalinger;
+    static double time;
+    static double pulseprsek;
     static double pulse;
 
     public PulsSensor() {
@@ -93,13 +96,17 @@ public class PulsSensor extends Sensor implements Runnable {
         }
         /*puls beregning
 		*tiden bestemmes ved antal målinger delt med 200, da vi tager 200 målinger i sekundet (se timer i Arduino)*/
+        antalmalinger = valueArray.size();
+        time = antalmalinger / 200.0;
+        pulseprsek =  n / time;
 
-        pulse = (n / (valueArray.size() / 200.0)) * 60;
+        pulse = pulseprsek * 60;
     }
 
     @Override
     public double getData() {
         return pulse;
+
     }
 
 }
