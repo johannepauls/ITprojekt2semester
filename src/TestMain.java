@@ -4,7 +4,7 @@ import java.util.*;
 
 public class TestMain {
 
-    private static Sensor tempSensor = new TempSensor();
+   //private static Sensor tempSensor = new TempSensor();
     private static double temp = 0.0;
     private static Sensor pulsSensor = new PulsSensor();
     private static double puls = 0.0;
@@ -15,7 +15,7 @@ public class TestMain {
         T.start(); 
         try {
             while (true) {
-                temp = tempSensor.getData();
+                //temp = tempSensor.getData();
                 puls = pulsSensor.getData();
                 System.out.println("temperatur: " + temp + " puls: " + puls);
 
