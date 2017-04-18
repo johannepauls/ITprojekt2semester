@@ -22,4 +22,6 @@ public class Sensor {
     public double getData() {
         return value;
     }
+
+    
 }

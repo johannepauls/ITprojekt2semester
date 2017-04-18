@@ -12,8 +12,8 @@ public class TempSensor extends Sensor {
     public static double value;
     public static double temp;
 
-    public TempSensor() {
-        super("COM6");
+    public TempSensor(String port) {
+        super(port);
         
         try {
             serialPort.setDTR(true);
@@ -29,7 +29,7 @@ public class TempSensor extends Sensor {
                     *hvis sensoren buffer returneres -1 og dette fanger vi senere*/
                     if (serialPort.getInputBufferBytesCount() > 0) {
                         result = serialPort.readString();
-                        value = Double.parseDouble(result.substring(1, 6));
+                        value = Double.parseDouble(result.substring(1,6));
                     } else {
                         value = -1.0;
                     }

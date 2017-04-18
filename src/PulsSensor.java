@@ -2,28 +2,23 @@
 import jssc.*;
 import java.lang.*;
 import java.util.*;
-import java.io.*;
 
 public class PulsSensor extends Sensor implements Runnable {
 
     static String data;
     static String rest = "";
-    static String aldata;
-    static String[] dataArray;
-    static int last;
+    static String alldata;
+    static String[] stringArray;
     static ArrayList<Double> valueArray = new ArrayList<Double>();
-    static double value;
+    static Double value;
     static double pulseValue;
     static boolean found;
-    static boolean a;
+    static boolean foundBefore;
     static double n = 0;
-    static double antalmalinger;
-    static double time;
-    static double pulseprsek;
     static double pulse;
 
-    public PulsSensor() {
-        super("COM8");
+    public PulsSensor(String port) {
+        super(port);
 
         try {
             if (serialPort.getInputBufferBytesCount() > 0) {
@@ -32,7 +27,7 @@ public class PulsSensor extends Sensor implements Runnable {
         } catch (SerialPortException ex) {
             System.out.println("Serial Port Exception: " + ex);
         }
-        last = data.lastIndexOf("!");
+        int last = data.lastIndexOf("!");
         if (last > -1 && last < data.length() - 1) {
             rest = data.substring(last + 1);
         }
@@ -40,6 +35,7 @@ public class PulsSensor extends Sensor implements Runnable {
 
     @Override
     public void run() {
+        for(;;){
         try {
             if (serialPort.getInputBufferBytesCount() > 0) {
                 data = serialPort.readString();
@@ -48,21 +44,21 @@ public class PulsSensor extends Sensor implements Runnable {
             System.out.println("Serial Port Exception: " + ex);
         }
 
-        aldata = rest + data;
+        alldata = rest + data;
 
-        if (!aldata.endsWith("!")) {
-            rest = aldata.substring(aldata.lastIndexOf("!") + 1);
-            aldata = aldata.substring(0, aldata.lastIndexOf("!") + 1);
+        if (!alldata.endsWith("!")) {
+            rest = alldata.substring(alldata.lastIndexOf("!") + 1);
+            alldata = alldata.substring(0, alldata.lastIndexOf("!") + 1);
         } else {
             rest = "";
         }
 
-        dataArray = aldata.split("!");
+        stringArray = alldata.split("!");
 
-        for (int i = 0; i < dataArray.length - 1; i++) {
-            Double value = null;
+        for (int i = 0; i < stringArray.length - 1; i++) {
+            value = null;
             try {
-                value = new Double(dataArray[i]);
+                value = new Double(stringArray[i]);
                 if (value > 5.0) {
                     value = null;
                 }
@@ -83,30 +79,30 @@ public class PulsSensor extends Sensor implements Runnable {
 			*denne leder efter overgangen over værdien 3, vha. to boolske værdier*/
         for (int t = 0; t < valueArray.size() - 1; t++) {
             pulseValue = valueArray.get(t);
-            a = found;
+            foundBefore = found;
             if (pulseValue >= 3) {
                 found = true;
             } else {
                 found = false;
             }
 
-            if (!a && found) {
+            if (!foundBefore && found) {
                 n++;
             }
         }
-        /*puls beregning
-		*tiden bestemmes ved antal målinger delt med 200, da vi tager 200 målinger i sekundet (se timer i Arduino)*/
-        antalmalinger = valueArray.size();
-        time = antalmalinger / 200.0;
-        pulseprsek =  n / time;
-
-        pulse = pulseprsek * 60;
+        pulse = (n / ((valueArray.size()) / 200.0)) * 60;
+        
+        n = 0;
+        valueArray.clear();
+        try{
+            Thread.sleep(10000);
+        }catch(Exception e){}
+        }
     }
 
     @Override
     public double getData() {
-        return pulse;
-
+            return pulse;
     }
 
 }
