@@ -5,7 +5,6 @@ import java.util.List;
 import javax.swing.*;
 
 public class TegnePanel extends JPanel {
-
     private final int width = 800;
     private final int heigth = 400;
     private final int padding = 25;

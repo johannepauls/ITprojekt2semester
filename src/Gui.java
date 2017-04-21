@@ -438,7 +438,6 @@ public class Gui extends javax.swing.JPanel {
     public void setStartet(boolean value) {
         begin = value;
     }
-
     /*metode der via en boolsk værdi fortæller om vi er startet*/
     public boolean isStartet() {
         return begin;

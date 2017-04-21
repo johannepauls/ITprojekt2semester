@@ -4,7 +4,6 @@ import java.lang.*;
 import java.util.*;
 
 public class PulsSensor extends Sensor implements Runnable {
-
     static String data;
     static String rest = "";
     static String alldata;

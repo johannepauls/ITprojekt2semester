@@ -3,7 +3,6 @@ import java.sql.*;
 
 /*DataStorage klassen er vores database, og fungere i praksis ved at gemme sensorværdierne i en fil*/
 public class DataStorage {
-
     public DataStorage() {
         try {
             Class.forName("com.mysql.jdbc.Driver").newInstance();						// tilknyt driver

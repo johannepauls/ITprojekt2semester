@@ -34,7 +34,6 @@ public class Examination {
                     if (pan.isPuls()) {
                         evaluatePuls(pan.getPulsMax(),pan.getPulsMin());
                     }
-
                 }
                 /*vi ved at sensor cirka måler en værdi hvert 10. sekund, vi venter derfor 10 sekunder før vi ønsker at kører igen*/
                 java.util.concurrent.TimeUnit.MILLISECONDS.sleep(15000);

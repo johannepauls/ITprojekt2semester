@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import jssc.*;
 
 public class TempSensor extends Sensor {
-
     private static Timer timer = new Timer(true);
     public static String result;
     public static double value;
