@@ -25,8 +25,15 @@ public class DataStorage {
             conn = DriverManager.getConnection(url, userName, password);
             stmt = conn.createStatement();
             stmt2 = conn.prepareStatement("INSERT INTO maaling VALUES (?,?)");
-            stmt.executeUpdate("DROP TABLE maaling");
-            stmt.executeUpdate("CREATE TABLE maaling(value DOUBLE, type VARCHAR(10))");
+            try{
+                stmt.executeUpdate("SELECT * FROM maaling");
+                stmt.executeUpdate("DROP TABLE maaling");
+                stmt.executeUpdate("CREATE TABLE maaling(value DOUBLE, type VARCHAR(10))");
+            }
+            catch(Exception e){
+                stmt.executeUpdate("CREATE TABLE maaling(value DOUBLE, type VARCHAR(10))");
+            }
+           
 
         } catch (Exception e) {
             System.out.println("jtest undtagelse: " + e.getMessage());					// udskriv fejlmeddelelse
