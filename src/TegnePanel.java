@@ -23,7 +23,8 @@ public class TegnePanel extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         /*vi henter data ind hver gang vi repainter*/
-        data = DataStorage.readFromFile();
+      //  data = DataStorage.readFromFile();
+      Collections.addAll(data,1.0,2.0,3.0,4.0,5.0,6.0,7.0);
         super.paintComponent(g);
 
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (data.size() - 1);

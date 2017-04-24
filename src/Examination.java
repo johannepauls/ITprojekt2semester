@@ -6,10 +6,11 @@ public class Examination {
 
     //private static List<Double> data = DataStorage.readFromFile();
     private static Gui pan = null;
-    private static Sensor tempSensor = new TempSensor("/dev/tty.usbserial");
+    private static Sensor tempSensor = new TempSensor("COM6");
     private static double temp = 0.0;
-    private static Sensor pulsSensor = new PulsSensor("/dev/tty.usbmodem1411");
+    private static Sensor pulsSensor = new PulsSensor("COM8");
     private static double puls = 0.0;
+    private static DataStorage database = new DataStorage();
 
     public static void main(String[] args) {
         (new Thread((Runnable) pulsSensor)).start();
@@ -27,6 +28,7 @@ public class Examination {
             while (true) {
                 /*programmet tester hvorvidt vi har trykket på start*/
                 if (pan.isStartet()) {
+                    ramme.pack();
                     if (pan.isTemp()) {
                         evaluateTemp(pan.getTempMax(), pan.getTempMin());
                     }
@@ -48,6 +50,7 @@ public class Examination {
     public static void evaluateTemp(double maxgr, double mingr) {
         /*data hentes ind*/
         temp = tempSensor.getData();
+        database.gemData(temp, "temperatur");
         /*værdien gemmes i 'databasen', der ligenu er en fil*/
         //DataStorage.writeToFile(temp);
         /*label på MyPanel der vises ved alarm nulstilles. 
@@ -65,6 +68,8 @@ public class Examination {
 
     public static void evaluatePuls(double maxgr, double mingr) {
         puls = pulsSensor.getData();
+        puls = Math.round(puls);
+        database.gemData(puls, "puls");
         System.out.println("puls: " + puls);
         pan.resetPulsAlarm();
         /*label på MyPanel, der viser den temperatur vi arbejder med*/
@@ -77,5 +82,6 @@ public class Examination {
             
         }
     }
+    
 
 }

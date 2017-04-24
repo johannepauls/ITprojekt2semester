@@ -1,6 +1,6 @@
 
 import java.util.List;
-import javax.swing.JFrame;
+import javax.swing.*;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -24,6 +24,7 @@ public class Gui extends javax.swing.JPanel {
     //private static boolean isMin = false;
     private static JFrame tempGrafFrame = null;
     private static JFrame pulsGrafFrame = null;
+    private static JFrame helpFrame = null;
     List<Double> data;
 
     /**
@@ -257,11 +258,12 @@ public class Gui extends javax.swing.JPanel {
                     .addComponent(tempLabelInfo)
                     .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(maxTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tempLabel)
-                    .addComponent(tempAlarmLabel))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(maxTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(tempAlarmLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(minTemp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -319,8 +321,8 @@ public class Gui extends javax.swing.JPanel {
                 maxTempGr = Double.parseDouble(maxTemp.getText());
             } catch (NumberFormatException n) {
                 maxTempGr = 39.0;
-              maxTemp.setText(String.valueOf(maxTempGr));
-              isTempGr = true;
+                maxTemp.setText(String.valueOf(maxTempGr));
+                isTempGr = true;
             }
             try {
                 minTempGr = Double.parseDouble(minTemp.getText());
@@ -329,12 +331,14 @@ public class Gui extends javax.swing.JPanel {
                 minTemp.setText(String.valueOf(minTempGr));
                 isTempGr = true;
             }
-            if(isTempGr){
-                //dialog eller besked
+            if (isTempGr) {
+                String tempGr = "De har valgt ikke at indtaste grænseværdier temperaturmålingen. "
+                        + "\n Stardardværdi benyttes. ";
+                JOptionPane.showMessageDialog(helpFrame, tempGr);
             }
 
         }
-        
+
         if (pulsCheckBox.isSelected()) {
             isPulsGr = false;
             pulsGrafKnap.setVisible(true);
@@ -342,18 +346,20 @@ public class Gui extends javax.swing.JPanel {
                 maxPulsGr = Double.parseDouble(maxPuls.getText());
             } catch (NumberFormatException n) {
                 maxPulsGr = 120.0;
-              maxPuls.setText(String.valueOf(maxPulsGr));
-              isPulsGr =true;
+                maxPuls.setText(String.valueOf(maxPulsGr));
+                isPulsGr = true;
             }
             try {
                 minPulsGr = Double.parseDouble(minPuls.getText());
             } catch (NumberFormatException n) {
                 minPulsGr = 50.0;
                 minPuls.setText(String.valueOf(minPulsGr));
-                isPulsGr =true;
+                isPulsGr = true;
             }
-            if(isPulsGr){
-                //dialog eller besked
+            if (isPulsGr) {
+                String pulsGr = "De har valgt ikke at indtaste grænseværdier pulsmålingen. "
+                        + "\n Stardardværdi benyttes. ";
+                JOptionPane.showMessageDialog(helpFrame, pulsGr);
             }
 
         }
@@ -376,6 +382,7 @@ public class Gui extends javax.swing.JPanel {
         *så ved Examination at målingen er stoppet*/
         setStartet(false);
         
+
     }//GEN-LAST:event_stopKnapActionPerformed
 
     private void tempCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempCheckBoxActionPerformed
@@ -406,7 +413,7 @@ public class Gui extends javax.swing.JPanel {
             tempGrafFrame.repaint();
         }
     }
-    
+
     public void setPuls(double puls) {
         pulsLabel.setText("" + puls + " BPM");
         if (pulsGrafFrame != null) {
@@ -419,8 +426,8 @@ public class Gui extends javax.swing.JPanel {
     public void resetTempAlarm() {
         tempAlarmLabel.setText("");
     }
-    
-     public void resetPulsAlarm() {
+
+    public void resetPulsAlarm() {
         pulsAlarmLabel.setText("");
     }
 
@@ -429,7 +436,7 @@ public class Gui extends javax.swing.JPanel {
     public void setTempAlarm() {
         tempAlarmLabel.setText("ALARM: grænseværdi overskredet");
     }
-    
+
     public void setPulsAlarm() {
         pulsAlarmLabel.setText("ALARM: grænseværdi overskredet");
     }
@@ -438,6 +445,7 @@ public class Gui extends javax.swing.JPanel {
     public void setStartet(boolean value) {
         begin = value;
     }
+
     /*metode der via en boolsk værdi fortæller om vi er startet*/
     public boolean isStartet() {
         return begin;
@@ -451,23 +459,24 @@ public class Gui extends javax.swing.JPanel {
     public double getPulsMax() {
         return maxPulsGr;
     }
+
     /*metode, der returnerer minimumsværdien*/
     public double getTempMin() {
         return minTempGr;
     }
-    
+
     public double getPulsMin() {
         return minPulsGr;
     }
-    
-    public boolean isTemp(){
+
+    public boolean isTemp() {
         return tempCheckBox.isSelected();
     }
-    
-    public boolean isPuls(){
+
+    public boolean isPuls() {
         return pulsCheckBox.isSelected();
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
