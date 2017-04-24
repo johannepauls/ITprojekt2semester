@@ -7,14 +7,15 @@ import java.util.logging.Logger;
 /*DataStorage klassen er vores database, og fungere i praksis ved at gemme sensorværdierne i en fil*/
 public class DataStorage {
 
-    Connection conn;
-    Statement stmt;
+    static Connection conn;
+    static Statement stmt;
     PreparedStatement stmt2;
-    ArrayList<Double> data = new ArrayList<Double>();
+    static ArrayList<Double> data = new ArrayList<Double>();
+    static ResultSet rset;
+
 
     public DataStorage() {
         try {
-            
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();						// tilknyt driver
 
@@ -24,17 +25,15 @@ public class DataStorage {
 
             conn = DriverManager.getConnection(url, userName, password);
             stmt = conn.createStatement();
-            stmt2 = conn.prepareStatement("INSERT INTO maaling VALUES (?,?)");
-            try{
-                stmt.executeUpdate("SELECT * FROM maaling");
-                stmt.executeUpdate("DROP TABLE maaling");
-                stmt.executeUpdate("CREATE TABLE maaling(value DOUBLE, type VARCHAR(10))");
-            }
-            catch(Exception e){
-                stmt.executeUpdate("CREATE TABLE maaling(value DOUBLE, type VARCHAR(10))");
-            }
-           
+            stmt2 = conn.prepareStatement("INSERT INTO maaling (value,type,tid) VALUES (?,?,NOW())");
 
+            try {
+                ResultSet test = stmt.executeQuery("SELECT * FROM maaling");
+                stmt.executeUpdate("DROP TABLE maaling");
+            } catch (Exception e) {
+            }
+            stmt.executeUpdate("CREATE TABLE maaling(id INT PRIMARY KEY AUTO_INCREMENT, value DOUBLE, type VARCHAR(10), tid TIMESTAMP)");
+            
         } catch (Exception e) {
             System.out.println("jtest undtagelse: " + e.getMessage());					// udskriv fejlmeddelelse
             e.printStackTrace();
@@ -54,22 +53,25 @@ public class DataStorage {
         }
     }
 
-    public ArrayList<Double> hentData(String T) {
+    public static ArrayList<Double> hentData(String T) {
+        data.clear();
         try {
-            ResultSet rset = stmt.executeQuery("SELECT * FROM maaling WHERE type = T ");
-
+           rset = stmt.executeQuery("SELECT * FROM maaling WHERE type = '"+T+"' ORDER BY id DESC LIMIT 10");
+            
+            
             //der skal laves noget med hvor mange målinger der skal indlæses
-            while (rset.next()) {
-                data.add(rset.getDouble(1));
+            while(rset.next()){
+                
+                
+                    data.add(0,rset.getDouble(1));
+                
             }
-
+           
         } catch (Exception e) {
             System.out.println("jtest undtagelse: " + e.getMessage());					// udskriv fejlmeddelelse
             e.printStackTrace();
         }
         return data;
     }
-
-
 
 }

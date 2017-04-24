@@ -6,11 +6,11 @@ public class Examination {
 
     //private static List<Double> data = DataStorage.readFromFile();
     private static Gui pan = null;
-    private static Sensor tempSensor = new TempSensor("/dev/tty.usbserial"/*"COM6"*/);
+    private static Sensor tempSensor = new TempSensor(/*"/dev/tty.usbserial"*/"COM6");
     private static double temp = 0.0;
-    private static Sensor pulsSensor = new PulsSensor("/dev/tty.usbmodem1421"/*"COM8"*/);
+    private static Sensor pulsSensor = new PulsSensor(/*"/dev/tty.usbmodem1421"*/"COM8");
     private static double puls = 0.0;
-    private static DataStorage database = new DataStorage();
+    public static DataStorage database = new DataStorage();
 
     public static void main(String[] args) {
         (new Thread((Runnable) pulsSensor)).start();

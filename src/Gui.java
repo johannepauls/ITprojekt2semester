@@ -304,7 +304,7 @@ public class Gui extends javax.swing.JPanel {
         tempGrafFrame = new JFrame("Temperatur Graf");
         tempGrafFrame.setVisible(true);
         tempGrafFrame.setSize(600, 400);
-        tempGrafFrame.add(new TegnePanel());
+        tempGrafFrame.add(new TegnePanel("Temperatur"));
     }//GEN-LAST:event_tempGrafKnapActionPerformed
 
     private void maxTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxTempActionPerformed
@@ -401,7 +401,7 @@ public class Gui extends javax.swing.JPanel {
         pulsGrafFrame = new JFrame("Puls Graf");
         pulsGrafFrame.setVisible(true);
         pulsGrafFrame.setSize(600, 400);
-        pulsGrafFrame.add(new TegnePanel());
+        pulsGrafFrame.add(new TegnePanel("Puls"));
     }//GEN-LAST:event_pulsGrafKnapActionPerformed
 
     /*de følgende syv metoder, er metoder vi laver for at kunne ændre på gui fra Examination*/

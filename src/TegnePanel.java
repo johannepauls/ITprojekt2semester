@@ -14,17 +14,24 @@ public class TegnePanel extends JPanel {
     private final Color gridColor = new Color(200, 200, 200, 200);
     private final static Stroke GRAPH_STROKE = new BasicStroke(2f);
     private final int pointWidth = 4;
-    private final int numberYDivisions = 10;
-    private List<Double> data;
+    private final int numberYDivisions = 9;
+    private ArrayList<Double> data;
+    String type ="";
 
+    public TegnePanel(String t){
+        super();
+        type = t;
+    }
+    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         /*vi henter data ind hver gang vi repainter*/
-      //  data = DataStorage.readFromFile();
-      Collections.addAll(data,1.0,2.0,3.0,4.0,5.0,6.0,7.0);
+      data = DataStorage.hentData(type);
+      System.out.println(data.toString());
+      
         super.paintComponent(g);
 
         double xScale = ((double) getWidth() - (2 * padding) - labelPadding) / (data.size() - 1);
