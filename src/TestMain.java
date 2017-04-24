@@ -9,6 +9,6 @@ public class TestMain {
     private static DataStorage database = new DataStorage();
 
     public static void main(String[] args) {
-        database.luk();
+   
     }
 }

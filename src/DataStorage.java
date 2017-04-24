@@ -14,7 +14,7 @@ public class DataStorage {
 
     public DataStorage() {
         try {
-
+            
 
             Class.forName("com.mysql.jdbc.Driver").newInstance();						// tilknyt driver
 
@@ -63,14 +63,6 @@ public class DataStorage {
         return data;
     }
 
-    public void luk() {
-        try {
-            stmt.executeUpdate("DROP TABLE maaling");
-        } catch (Exception e) {
-            System.out.println("jtest undtagelse: " + e.getMessage());					// udskriv fejlmeddelelse
-            e.printStackTrace();
 
-        }
-    }
 
 }
