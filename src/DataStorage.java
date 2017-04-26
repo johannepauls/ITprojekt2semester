@@ -2,7 +2,7 @@
 import java.sql.*;
 import java.util.*;
 
-/*DataStorage klassen er vores database, og fungere i praksis ved at gemme sensorværdierne i en fil*/
+/*DataStorage klassen er vores database, og fungere i praksis ved at gemme sensorværdierne i en tabel*/
 public class DataStorage {
 
     private Connection conn;
