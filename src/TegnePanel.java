@@ -24,6 +24,8 @@ public class TegnePanel extends JPanel {
         super();
 
         type = t;
+        /*indsætter grænseværdier alt efter hvilken sensor der benyttes. 
+        *x-aksen går fra 0-9 og y-aksen fra 0-45 ved temperaturmåling og fra 0-150 ved pulsmåling*/
         if (t == "Temperatur") {
             max = 45.0;
         } else {
@@ -34,6 +36,7 @@ public class TegnePanel extends JPanel {
     }
 
     @Override
+    //*Metoden kaldes og der tegnes en graf over de sidste 10 værdier i databasen.
     protected synchronized void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
@@ -50,7 +53,7 @@ public class TegnePanel extends JPanel {
             int y1 = (int) ((max - data.get(i)) * yScale + afstandFraKantTilGraf);
             graphPoints.add(new Point(x1, y1));
         }
-
+        /*Tilføjer hvid baggrund*/
         g2.setColor(Color.WHITE);
         g2.fillRect(afstandFraKantTilGraf + afstandPladsTilLabel, afstandFraKantTilGraf, getWidth() - (2 * afstandFraKantTilGraf) - afstandPladsTilLabel, getHeight() - 2 * afstandFraKantTilGraf - afstandPladsTilLabel);
         g2.setColor(Color.BLACK);
@@ -95,7 +98,7 @@ public class TegnePanel extends JPanel {
         /*så opretter vi x- og y-aksen*/
         g2.drawLine(afstandFraKantTilGraf + afstandPladsTilLabel, getHeight() - afstandFraKantTilGraf - afstandPladsTilLabel, afstandFraKantTilGraf + afstandPladsTilLabel, afstandFraKantTilGraf);
         g2.drawLine(afstandFraKantTilGraf + afstandPladsTilLabel, getHeight() - afstandFraKantTilGraf - afstandPladsTilLabel, getWidth() - afstandFraKantTilGraf, getHeight() - afstandFraKantTilGraf - afstandPladsTilLabel);
-
+        /*Tegner prikker og streger ved prikkerne*/
         Stroke oldStroke = g2.getStroke();
         g2.setColor(linjeFarve);
         g2.setStroke(GRAPH_STROKE);
@@ -106,7 +109,6 @@ public class TegnePanel extends JPanel {
             int y2 = graphPoints.get(i + 1).y;
             g2.drawLine(x1, y1, x2, y2);
         }
-
         g2.setStroke(oldStroke);
         g2.setColor(prikFarve);
         for (int i = 0; i < graphPoints.size(); i++) {

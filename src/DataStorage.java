@@ -11,7 +11,8 @@ public class DataStorage {
     private ArrayList<Double> data = new ArrayList<Double>();
     private ResultSet rset;
 
-
+/*Konstruktør der opretter forbindelse til serveren og opretter en tabel 
+    * som vi gør klar til at sætte ind i*/
     public DataStorage() {
         try {
 
@@ -37,12 +38,11 @@ public class DataStorage {
             e.printStackTrace();
         }
     }
-
+/*Indsætter værdier i Databasen*/
     public void gemData(Double value, String type) {
         try {
             stmt2.setDouble(1, value);											// klargoer indsaettelse
             stmt2.setString(2, type);
-            //timestamp ?
             stmt2.executeUpdate();
 
         } catch (Exception e) {
@@ -50,20 +50,16 @@ public class DataStorage {
             e.printStackTrace();
         }
     }
-
+/*Henter de senste 10 data ind fra databasen der har typen t*/
     public ArrayList<Double> hentData(String T) {
         data.clear();
         try {
            rset = stmt.executeQuery("SELECT * FROM maaling WHERE type = '"+T+"' ORDER BY id DESC LIMIT 10");
-            //virker-W
-            
-            //der skal laves noget med hvor mange målinger der skal indlæses
             while(rset.next()){
                 
                 
                     data.add(0,rset.getDouble(2));
                     System.out.println(data.toString());
-                //tilfoej til data (på 0 plads, fortolket værdi
             }
            
         } catch (Exception e) {
@@ -72,8 +68,6 @@ public class DataStorage {
         }
        
        return data;
-    }
-    
-    
+    }    
 
 }

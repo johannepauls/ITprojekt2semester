@@ -32,7 +32,7 @@ public class Gui extends javax.swing.JPanel {
     /**
      * Creates new form Gui
      */
-    /*konstruktør der bl.a. skjuler stop og graf knap*/
+    /*konstruktør der bl.a. skjuler stopknappen og graf knapperne*/
     public Gui(DataStorage d) {
         initComponents();
         tempGrafKnap.setVisible(false);
@@ -325,7 +325,7 @@ public class Gui extends javax.swing.JPanel {
         tP.add(title, BorderLayout.NORTH);
         tP.add(x, BorderLayout.SOUTH);
         tP.add(y, BorderLayout.WEST);*/
-        
+        /*Laver temperaturgrafen via tegnepanel*/
         tempGrafFrame = new JFrame("Temperatur Graf");
         tempGrafFrame.setVisible(true);
         tempGrafFrame.setSize(600, 400);
@@ -337,8 +337,11 @@ public class Gui extends javax.swing.JPanel {
     }//GEN-LAST:event_maxTempActionPerformed
 
     private void startKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_startKnapActionPerformed
+        /*Viser stopknap og skjuler startknap*/
         stopKnap.setVisible(true);
         startKnap.setVisible(false);
+        /*Tester hvorvidt temperaturboksen er tjekket af.
+        * Hvis den er tjekket af henter vi grænseværdierne eller indsætter standardværdier*/
         if (tempCheckBox.isSelected()) {
             isTempGr = false;
             tempGrafKnap.setVisible(true);
@@ -356,6 +359,7 @@ public class Gui extends javax.swing.JPanel {
                 minTemp.setText(String.valueOf(minTempGr));
                 isTempGr = true;
             }
+            /*Hvis der ikke er indtastet grænseværdier dukker der en dialogboks op*/
             if (isTempGr) {
                 String tempGr = "De har valgt ikke at indtaste grænseværdier temperaturmålingen. "
                         + "\n Stardardværdi benyttes. ";
@@ -363,7 +367,8 @@ public class Gui extends javax.swing.JPanel {
             }
 
         }
-
+/*/*Tester hvorvidt pulsboksen er tjekket af.
+        * Hvis den er tjekket af henter vi grænseværdierne eller indsætter standardværdier*/
         if (pulsCheckBox.isSelected()) {
             isPulsGr = false;
             pulsGrafKnap.setVisible(true);
@@ -381,6 +386,7 @@ public class Gui extends javax.swing.JPanel {
                 minPuls.setText(String.valueOf(minPulsGr));
                 isPulsGr = true;
             }
+            /*Hvis der ikke er indtastet grænseværdier dukker der en dialogboks op*/
             if (isPulsGr) {
                 String pulsGr = "De har valgt ikke at indtaste grænseværdier pulsmålingen. "
                         + "\n Stardardværdi benyttes. ";
@@ -389,16 +395,12 @@ public class Gui extends javax.swing.JPanel {
 
         }
 
-        /*ved tryk på startnappen: skjules startknappen og graf + stop knap vises*/
- /*vi tester hvorvidt der indtastet grænseværdier, hvis ikke informerer vi brugeren
-        *og grænseværdierne sættes til standardværdier: 39 og 35*/
- /*den boolske værdi der fortæller hvorvidt der er trykket på starknappen sættes til sand
-        *så ved Examination at målingen er startet*/
+        
         setStartet(true);
     }//GEN-LAST:event_startKnapActionPerformed
 
     private void stopKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_stopKnapActionPerformed
-        /*ved tryk på stopknappen: skjules stop og graf knappen + startknappen vises igen*/
+        /*ved tryk på stopknappen: skjules stopknappen og graf knapperne + startknappen vises igen*/
         startKnap.setVisible(true);
         stopKnap.setVisible(false);
         tempGrafKnap.setVisible(false);
@@ -423,13 +425,14 @@ public class Gui extends javax.swing.JPanel {
     }//GEN-LAST:event_maxPulsActionPerformed
 
     private void pulsGrafKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsGrafKnapActionPerformed
+        /*Vi tegnergrafem for pulsmålingerne*/
         pulsGrafFrame = new JFrame("Puls Graf");
         pulsGrafFrame.setVisible(true);
         pulsGrafFrame.setSize(600, 400);
         pulsGrafFrame.add(pP);
     }//GEN-LAST:event_pulsGrafKnapActionPerformed
 
-    /*de følgende syv metoder, er metoder vi laver for at kunne ændre på gui fra Examination*/
+    /*de følgende 11 metoder, er metoder vi laver for at kunne ændre på gui fra Examination*/
  /*metode, der opdaterer temperaturværdien på gui og kalder repaint på grafen således at måling også vises på grafen*/
     public void setTemp(double temp) {
         tempLabel.setText("" + temp + " C");
@@ -438,7 +441,7 @@ public class Gui extends javax.swing.JPanel {
             tempGrafFrame.repaint();
         }
     }
-
+/*metode, der opdaterer pulsværdien på gui og kalder repaint på grafen således at måling også vises på grafen*/
     public void setPuls(double puls) {
         pulsLabel.setText("" + puls + " BPM");
         if (pulsGrafFrame != null) {
@@ -447,7 +450,7 @@ public class Gui extends javax.swing.JPanel {
         }
     }
 
-    /*metode, der nustiller alarm beskeden*/
+    /*metoder, der nustiller alarm beskeden*/
     public void resetTempAlarm() {
         tempAlarmLabel.setText("");
     }
@@ -457,7 +460,7 @@ public class Gui extends javax.swing.JPanel {
     }
 
 
-    /*metode, der viser alarm besked på gui*/
+    /*metoder, der viser alarm besked på gui*/
     public void setTempAlarm() {
         tempAlarmLabel.setText("ALARM: grænseværdi overskredet");
     }
@@ -476,24 +479,24 @@ public class Gui extends javax.swing.JPanel {
         return begin;
     }
 
-    /*metode der returnerer maximumsværdien*/
+    /*metode der returnerer maximumsværdien for temperaturmåling*/
     public double getTempMax() {
         return maxTempGr;
     }
-
+/*metode der returnerer maximumsværdien for pulsmåling*/
     public double getPulsMax() {
         return maxPulsGr;
     }
 
-    /*metode, der returnerer minimumsværdien*/
+    /*metode, der returnerer minimumsværdien for temperaturmåling*/
     public double getTempMin() {
         return minTempGr;
     }
-
+/*metode, der returnerer minimumsværdien for pulsmåling*/
     public double getPulsMin() {
         return minPulsGr;
     }
-
+/*Metoder der tjekker hvilken sensor der er tjekket af*/
     public boolean isTemp() {
         return tempCheckBox.isSelected();
     }

@@ -14,6 +14,7 @@ public class Examination {
     private static JFrame ramme = new JFrame();
 
     public static void main(String[] args) {
+        /*Starter pulssensor*/
         (new Thread((Runnable) pulsSensor)).start();
         
         ramme.add(pan);
@@ -26,15 +27,16 @@ public class Examination {
                 /*programmet tester hvorvidt vi har trykket på start*/
                 if (pan.isStartet()) {
                     ramme.pack();
+                    /*Hvis temperatur er tjekket af kalder vi evaluateTemp()*/
                     if (pan.isTemp()) {
                         evaluateTemp(pan.getTempMax(), pan.getTempMin());
                     }
-                    /*hvis vi har trykket på start knappen kaldes evaluer-metoden med de grænseværdier der er valgt på grænsefladen*/
+                    /*Hvis puls er tjekket af kalder vi evalutePuls()*/
                     if (pan.isPuls()) {
                         evaluatePuls(pan.getPulsMax(),pan.getPulsMin());
                     }
                 }
-                /*vi ved at sensor cirka måler en værdi hvert 10. sekund, vi venter derfor 10 sekunder før vi ønsker at kører igen*/
+                /*Vi venter 15 sekunder*/
                 java.util.concurrent.TimeUnit.MILLISECONDS.sleep(15000);
             }
         } catch (Exception ex) {
@@ -43,38 +45,28 @@ public class Examination {
     }
 
     /*metode, der evaluere den temperatur der er hentet fra sensoren
-    *har to paramenter som er vores grænseværdier*/
+    *har to paramenter som er vores grænseværdier
+    *og gemmer denne værdi i databasen*/
     public static void evaluateTemp(double maxgr, double mingr) {
-        /*data hentes ind*/
         temp = tempSensor.getData();
         database.gemData(temp, "Temperatur");
-        /*værdien gemmes i 'databasen', der ligenu er en fil*/
-       /*label på MyPanel der vises ved alarm nulstilles. 
-        *Så alarm beskeden fjernes når temperaturen ikke længere er udenfor normalområdet*/
         pan.resetTempAlarm();
-        /*label på MyPanel, der viser den temperatur vi arbejder med*/
         pan.setTemp(temp);
-        //System.out.println(temp);
-        /*løkke, der viser en alarm på MyPanel når grænseværdierne overskrides*/
         if (temp > maxgr || temp < mingr) {
             pan.setTempAlarm();
-            //System.out.println("ALARM");
         }
     }
-
+ /*metode, der afrunder og evaluere den puls der er hentet fra sensoren
+    *har to paramenter som er vores grænseværdier
+    *og gemmer denne værdi i databasen*/
     public static void evaluatePuls(double maxgr, double mingr) {
         puls = pulsSensor.getData();
         puls = Math.round(puls);
         database.gemData(puls, "Puls");
-       // System.out.println("puls: " + puls);
         pan.resetPulsAlarm();
-        /*label på MyPanel, der viser den temperatur vi arbejder med*/
         pan.setPuls(puls);
-        //System.out.println(temp);
-        /*løkke, der viser en alarm på MyPanel når grænseværdierne overskrides*/
         if (puls > maxgr || puls < mingr) {
             pan.setPulsAlarm();
-            //System.out.println("ALARM");
             
         }
     }

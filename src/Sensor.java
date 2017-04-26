@@ -5,7 +5,9 @@ public abstract class  Sensor {
     protected SerialPort serialPort;
     private static String result;
     private static double value;
-    /*konstruktør, der åbner serialportforbindelsen*/
+    /*Sensor klassen er en superklasse derfor er den abstract. Pulssensoren og temperatursensoren
+    nedarver derfor fra denne klasse
+    *konstruktøren åbner serielport forbindelsen og nedarves af begge børneklasser*/
     public Sensor(String port) {
         serialPort = new SerialPort(port);
         try {
@@ -17,7 +19,7 @@ public abstract class  Sensor {
         }
     }
     
-    /*metode, der henter data fra sensoren*/
+    
     public double getData() {
         return value;
     }
