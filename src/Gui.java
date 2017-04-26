@@ -453,8 +453,8 @@ public class Gui extends javax.swing.JPanel {
         pulsGrafFrame.add(pP);
     }//GEN-LAST:event_pulsGrafKnapActionPerformed
 
-    /*de følgende 11 metoder, er metoder vi laver for at kunne ændre på gui fra Examination*/
- /*metode, der opdaterer temperaturværdien på gui og kalder repaint på grafen således at måling også vises på grafen*/
+    /*de følgende 14 metoder, er metoder vi laver for at kunne ændre på gui fra Examination*/
+ /*metode, der opdaterer temperaturværdien på Gui og kalder repaint på grafen således at måling også vises på grafen*/
     public void setTemp(double temp) {
         tempLabel.setText("" + temp + " C");
         if (tempGrafFrame != null) {
