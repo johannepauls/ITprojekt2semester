@@ -1,4 +1,6 @@
 
+import java.awt.*;
+import java.io.File;
 import java.util.List;
 import javax.swing.*;
 
@@ -25,17 +27,21 @@ public class Gui extends javax.swing.JPanel {
     private static JFrame tempGrafFrame = null;
     private static JFrame pulsGrafFrame = null;
     private static JFrame helpFrame = null;
+    private TegnePanel tP;
+    private TegnePanel pP;
     List<Double> data;
 
     /**
      * Creates new form Gui
      */
     /*konstruktør der bl.a. skjuler stop og graf knap*/
-    public Gui() {
+    public Gui(DataStorage d) {
         initComponents();
         tempGrafKnap.setVisible(false);
         pulsGrafKnap.setVisible(false);
         stopKnap.setVisible(false);
+        tP = new TegnePanel("Temperatur", d);
+        pP = new TegnePanel("Puls", d);
     }
 
     /**
@@ -301,10 +307,31 @@ public class Gui extends javax.swing.JPanel {
 
     private void tempGrafKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempGrafKnapActionPerformed
         /*ved tryk på graf knappen åbnes nyt vindue der tegner grafen vha. TegnePanel*/
+                tP.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("graf over måling af Temperatur");
+        title.setFont(new Font("Arial", Font.BOLD, 25));
+        title.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel x = new JLabel("målingnr.");
+        x.setFont(new Font("Arial", Font.PLAIN, 20));
+        x.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel y = new JLabel("Temperatur (C)");
+        y.setFont(new Font("Arial", Font.PLAIN, 10));
+        y.setVerticalAlignment(JLabel.CENTER);
+        y.setText(null);
+        
+        y.setIcon(new ImageIcon(getClass().getResource("ikonet.png")));
+        
+        tP.add(title, BorderLayout.NORTH);
+        tP.add(x, BorderLayout.SOUTH);
+        tP.add(y, BorderLayout.WEST);
+        
         tempGrafFrame = new JFrame("Temperatur Graf");
         tempGrafFrame.setVisible(true);
         tempGrafFrame.setSize(600, 400);
-        tempGrafFrame.add(new TegnePanel("Temperatur"));
+        tempGrafFrame.add(tP);
     }//GEN-LAST:event_tempGrafKnapActionPerformed
 
     private void maxTempActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_maxTempActionPerformed
@@ -381,7 +408,7 @@ public class Gui extends javax.swing.JPanel {
         /*den boolske værdi der fortæller hvorvidt der er trykket på starknappen sættes til falsk
         *så ved Examination at målingen er stoppet*/
         setStartet(false);
-        
+
 
     }//GEN-LAST:event_stopKnapActionPerformed
 
@@ -401,7 +428,7 @@ public class Gui extends javax.swing.JPanel {
         pulsGrafFrame = new JFrame("Puls Graf");
         pulsGrafFrame.setVisible(true);
         pulsGrafFrame.setSize(600, 400);
-        pulsGrafFrame.add(new TegnePanel("Puls"));
+        pulsGrafFrame.add(pP);
     }//GEN-LAST:event_pulsGrafKnapActionPerformed
 
     /*de følgende syv metoder, er metoder vi laver for at kunne ændre på gui fra Examination*/

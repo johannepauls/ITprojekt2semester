@@ -4,21 +4,18 @@ import javax.swing.*;
 
 public class Examination {
 
-    //private static List<Double> data = DataStorage.readFromFile();
-    private static Gui pan = null;
+    
+    public static DataStorage database = new DataStorage();
+    private static Gui pan = new Gui(database);
     private static Sensor tempSensor = new TempSensor(/*"/dev/tty.usbserial"*/"COM6");
     private static double temp = 0.0;
     private static Sensor pulsSensor = new PulsSensor(/*"/dev/tty.usbmodem1421"*/"COM8");
     private static double puls = 0.0;
-    public static DataStorage database = new DataStorage();
+    private static JFrame ramme = new JFrame();
 
     public static void main(String[] args) {
         (new Thread((Runnable) pulsSensor)).start();
-        /*vindue til Gui oprettes og tilpasses:
-        *størrelsen sættes automatisk med pack()?
-        *programmet afsluttes når vinduet lukkes*/
-        JFrame ramme = new JFrame();
-        pan = new Gui();
+        
         ramme.add(pan);
         ramme.pack();
         ramme.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -50,7 +47,7 @@ public class Examination {
     public static void evaluateTemp(double maxgr, double mingr) {
         /*data hentes ind*/
         temp = tempSensor.getData();
-        database.gemData(temp, "temperatur");
+        database.gemData(temp, "Temperatur");
         /*værdien gemmes i 'databasen', der ligenu er en fil*/
         //DataStorage.writeToFile(temp);
         /*label på MyPanel der vises ved alarm nulstilles. 
@@ -69,8 +66,8 @@ public class Examination {
     public static void evaluatePuls(double maxgr, double mingr) {
         puls = pulsSensor.getData();
         puls = Math.round(puls);
-        database.gemData(puls, "puls");
-        System.out.println("puls: " + puls);
+        database.gemData(puls, "Puls");
+       // System.out.println("puls: " + puls);
         pan.resetPulsAlarm();
         /*label på MyPanel, der viser den temperatur vi arbejder med*/
         pan.setPuls(puls);
@@ -82,6 +79,6 @@ public class Examination {
             
         }
     }
-    
+   
 
 }

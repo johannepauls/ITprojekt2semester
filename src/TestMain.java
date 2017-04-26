@@ -9,7 +9,7 @@ public class TestMain {
     private static DataStorage database = new DataStorage();
 
     public static void main(String[] args) {
-        for(int i=0;i<40;i++){
+       /* for(int i=0;i<40;i++){
             temp = i;
             database.gemData(temp, "Temperatur");
             puls = i;
@@ -21,6 +21,6 @@ public class TestMain {
         database.hentData("Puls");
         System.out.println((database.hentData("Puls")).toString());
                 
-   
+   */
     }
 }

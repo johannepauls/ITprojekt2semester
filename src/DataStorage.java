@@ -1,17 +1,15 @@
 
 import java.sql.*;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /*DataStorage klassen er vores database, og fungere i praksis ved at gemme sensorværdierne i en fil*/
 public class DataStorage {
 
-    static Connection conn;
-    static Statement stmt;
-    PreparedStatement stmt2;
-    static ArrayList<Double> data = new ArrayList<Double>();
-    static ResultSet rset;
+    private Connection conn;
+    private Statement stmt;
+    private PreparedStatement stmt2;
+    private ArrayList<Double> data = new ArrayList<Double>();
+    private ResultSet rset;
 
 
     public DataStorage() {
@@ -40,7 +38,7 @@ public class DataStorage {
         }
     }
 
-    public void gemData(double value, String type) {
+    public void gemData(Double value, String type) {
         try {
             stmt2.setDouble(1, value);											// klargoer indsaettelse
             stmt2.setString(2, type);
@@ -53,25 +51,29 @@ public class DataStorage {
         }
     }
 
-    public static ArrayList<Double> hentData(String T) {
+    public ArrayList<Double> hentData(String T) {
         data.clear();
         try {
            rset = stmt.executeQuery("SELECT * FROM maaling WHERE type = '"+T+"' ORDER BY id DESC LIMIT 10");
-            
+            //virker-W
             
             //der skal laves noget med hvor mange målinger der skal indlæses
             while(rset.next()){
                 
                 
-                    data.add(0,rset.getDouble(1));
-                
+                    data.add(0,rset.getDouble(2));
+                    System.out.println(data.toString());
+                //tilfoej til data (på 0 plads, fortolket værdi
             }
            
         } catch (Exception e) {
             System.out.println("jtest undtagelse: " + e.getMessage());					// udskriv fejlmeddelelse
             e.printStackTrace();
         }
-        return data;
+       
+       return data;
     }
+    
+    
 
 }

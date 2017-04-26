@@ -4,17 +4,17 @@ import java.lang.*;
 import java.util.*;
 
 public class PulsSensor extends Sensor implements Runnable {
-    static String data;
-    static String rest = "";
-    static String alldata;
-    static String[] stringArray;
-    static ArrayList<Double> valueArray = new ArrayList<Double>();
-    static Double value;
-    static double pulseValue;
-    static boolean found;
-    static boolean foundBefore;
-    static double n = 0;
-    static double pulse;
+    private String data;
+    private String rest = "";
+    private String alldata;
+    private String[] stringArray;
+    private ArrayList<Double> valueArray = new ArrayList<Double>();
+    private Double value;
+    private double pulseValue;
+    private boolean found;
+    private boolean foundBefore;
+    private double n = 0;
+    private double pulse;
 
     public PulsSensor(String port) {
         super(port);
@@ -29,6 +29,7 @@ public class PulsSensor extends Sensor implements Runnable {
         int last = data.lastIndexOf("!");
         if (last > -1 && last < data.length() - 1) {
             rest = data.substring(last + 1);
+            //System.out.println(rest);//til Test
         }
     }
 

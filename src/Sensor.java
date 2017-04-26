@@ -1,10 +1,10 @@
 
 import jssc.*;
 
-public class Sensor {
+public abstract class  Sensor {
     protected SerialPort serialPort;
-    public static String result;
-    public static double value;
+    private static String result;
+    private static double value;
     /*konstruktør, der åbner serialportforbindelsen*/
     public Sensor(String port) {
         serialPort = new SerialPort(port);

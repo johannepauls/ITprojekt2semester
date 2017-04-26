@@ -1,15 +1,13 @@
 
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import jssc.*;
 
 public class TempSensor extends Sensor {
     private static Timer timer = new Timer(true);
-    public static String result;
-    public static double value;
-    public static double temp;
+    private static String result;
+    private static double value;
+    private static double temp;
 
     public TempSensor(String port) {
         super(port);
@@ -17,7 +15,7 @@ public class TempSensor extends Sensor {
         try {
             serialPort.setDTR(true);
         } catch (SerialPortException ex) {
-            Logger.getLogger(TempSensor.class.getName()).log(Level.SEVERE, null, ex);
+            
         }
 
         timer.scheduleAtFixedRate(new TimerTask() {
@@ -32,6 +30,7 @@ public class TempSensor extends Sensor {
                     } else {
                         value = -1.0;
                     }
+                    //System.out.println(value); //til test
                 } catch (SerialPortException ex) {
                     System.out.println("Serial Port Exception: " + ex);
                 }
@@ -45,6 +44,7 @@ public class TempSensor extends Sensor {
     
     @Override
     public double getData() {
+        //System.out.println(temp); //til Test
         return temp;
     }
 
