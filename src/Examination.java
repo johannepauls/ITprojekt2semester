@@ -49,8 +49,7 @@ public class Examination {
         temp = tempSensor.getData();
         database.gemData(temp, "Temperatur");
         /*værdien gemmes i 'databasen', der ligenu er en fil*/
-        //DataStorage.writeToFile(temp);
-        /*label på MyPanel der vises ved alarm nulstilles. 
+       /*label på MyPanel der vises ved alarm nulstilles. 
         *Så alarm beskeden fjernes når temperaturen ikke længere er udenfor normalområdet*/
         pan.resetTempAlarm();
         /*label på MyPanel, der viser den temperatur vi arbejder med*/

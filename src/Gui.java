@@ -15,18 +15,16 @@ import javax.swing.*;
  */
 public class Gui extends javax.swing.JPanel {
 
-    private static boolean begin = false;
-    private static boolean isTempGr;
-    private static boolean isPulsGr;
-    private static double maxTempGr;
-    private static double minTempGr;
-    private static double maxPulsGr;
-    private static double minPulsGr;
-    //rivate static boolean isMax = false;
-    //private static boolean isMin = false;
-    private static JFrame tempGrafFrame = null;
-    private static JFrame pulsGrafFrame = null;
-    private static JFrame helpFrame = null;
+    private boolean begin = false;
+    private boolean isTempGr;
+    private boolean isPulsGr;
+    private double maxTempGr;
+    private double minTempGr;
+    private double maxPulsGr;
+    private double minPulsGr;
+    private JFrame tempGrafFrame = null;
+    private JFrame pulsGrafFrame = null;
+    private JFrame helpFrame = null;
     private TegnePanel tP;
     private TegnePanel pP;
     List<Double> data;
@@ -307,7 +305,7 @@ public class Gui extends javax.swing.JPanel {
 
     private void tempGrafKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempGrafKnapActionPerformed
         /*ved tryk på graf knappen åbnes nyt vindue der tegner grafen vha. TegnePanel*/
-                tP.setLayout(new BorderLayout());
+        /*tP.setLayout(new BorderLayout());
 
         JLabel title = new JLabel("graf over måling af Temperatur");
         title.setFont(new Font("Arial", Font.BOLD, 25));
@@ -326,7 +324,7 @@ public class Gui extends javax.swing.JPanel {
         
         tP.add(title, BorderLayout.NORTH);
         tP.add(x, BorderLayout.SOUTH);
-        tP.add(y, BorderLayout.WEST);
+        tP.add(y, BorderLayout.WEST);*/
         
         tempGrafFrame = new JFrame("Temperatur Graf");
         tempGrafFrame.setVisible(true);
