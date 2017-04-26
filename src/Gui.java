@@ -27,7 +27,6 @@ public class Gui extends javax.swing.JPanel {
     private JFrame helpFrame = null;
     private TegnePanel tP;
     private TegnePanel pP;
-    List<Double> data;
 
     /**
      * Creates new form Gui
