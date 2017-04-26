@@ -304,27 +304,28 @@ public class Gui extends javax.swing.JPanel {
 
     private void tempGrafKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tempGrafKnapActionPerformed
         /*ved tryk på graf knappen åbnes nyt vindue der tegner grafen vha. TegnePanel*/
-        /*tP.setLayout(new BorderLayout());
+        /*tegner labels*/
+        tP.setLayout(new BorderLayout());
+        JLabel tTitle = new JLabel("graf over måling af Temperatur");
+        tTitle.setFont(new Font("Arial", Font.BOLD, 20));
+        tTitle.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel title = new JLabel("graf over måling af Temperatur");
-        title.setFont(new Font("Arial", Font.BOLD, 25));
-        title.setHorizontalAlignment(JLabel.CENTER);
+        JLabel tx = new JLabel("målingnr.");
+        tx.setFont(new Font("Arial", Font.PLAIN, 20));
+        tx.setHorizontalAlignment(JLabel.CENTER);
 
-        JLabel x = new JLabel("målingnr.");
-        x.setFont(new Font("Arial", Font.PLAIN, 20));
-        x.setHorizontalAlignment(JLabel.CENTER);
+        JLabel ty = new JLabel("Temperatur (C)");
+        ty.setFont(new Font("Arial", Font.PLAIN, 10));
+        ty.setVerticalAlignment(JLabel.CENTER);
+        ty.setText(null);
 
-        JLabel y = new JLabel("Temperatur (C)");
-        y.setFont(new Font("Arial", Font.PLAIN, 10));
-        y.setVerticalAlignment(JLabel.CENTER);
-        y.setText(null);
+        ty.setIcon(new ImageIcon(getClass().getResource("tempIkon.png")));
+
+        tP.add(tTitle, BorderLayout.NORTH);
+        tP.add(tx, BorderLayout.SOUTH);
+        tP.add(ty, BorderLayout.WEST);
         
-        y.setIcon(new ImageIcon(getClass().getResource("ikonet.png")));
-        
-        tP.add(title, BorderLayout.NORTH);
-        tP.add(x, BorderLayout.SOUTH);
-        tP.add(y, BorderLayout.WEST);*/
-        /*Laver temperaturgrafen via tegnepanel*/
+        /*ved tryk på graf knappen åbnes nyt vindue der tegner grafen vha. TegnePanel*/
         tempGrafFrame = new JFrame("Temperatur Graf");
         tempGrafFrame.setVisible(true);
         tempGrafFrame.setSize(600, 400);
@@ -366,7 +367,7 @@ public class Gui extends javax.swing.JPanel {
             }
 
         }
-/*/*Tester hvorvidt pulsboksen er tjekket af.
+        /*/*Tester hvorvidt pulsboksen er tjekket af.
         * Hvis den er tjekket af henter vi grænseværdierne eller indsætter standardværdier*/
         if (pulsCheckBox.isSelected()) {
             isPulsGr = false;
@@ -394,7 +395,6 @@ public class Gui extends javax.swing.JPanel {
 
         }
 
-        
         setStartet(true);
     }//GEN-LAST:event_startKnapActionPerformed
 
@@ -424,6 +424,28 @@ public class Gui extends javax.swing.JPanel {
     }//GEN-LAST:event_maxPulsActionPerformed
 
     private void pulsGrafKnapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pulsGrafKnapActionPerformed
+        /*tegner label*/
+        pP.setLayout(new BorderLayout());
+
+        JLabel ptitle = new JLabel("graf over måling af puls");
+        ptitle.setFont(new Font("Arial", Font.BOLD, 20));
+        ptitle.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel px = new JLabel("målingnr.");
+        px.setFont(new Font("Arial", Font.PLAIN, 20));
+        px.setHorizontalAlignment(JLabel.CENTER);
+
+        JLabel py = new JLabel("Temperatur (C)");
+        py.setFont(new Font("Arial", Font.PLAIN, 10));
+        py.setVerticalAlignment(JLabel.CENTER);
+        py.setText(null);
+
+        py.setIcon(new ImageIcon(getClass().getResource("pulsIkon.png")));
+
+        pP.add(ptitle, BorderLayout.NORTH);
+        pP.add(px, BorderLayout.SOUTH);
+        pP.add(py, BorderLayout.WEST);
+
         /*Vi tegnergrafem for pulsmålingerne*/
         pulsGrafFrame = new JFrame("Puls Graf");
         pulsGrafFrame.setVisible(true);
@@ -440,7 +462,8 @@ public class Gui extends javax.swing.JPanel {
             tempGrafFrame.repaint();
         }
     }
-/*metode, der opdaterer pulsværdien på gui og kalder repaint på grafen således at måling også vises på grafen*/
+
+    /*metode, der opdaterer pulsværdien på gui og kalder repaint på grafen således at måling også vises på grafen*/
     public void setPuls(double puls) {
         pulsLabel.setText("" + puls + " BPM");
         if (pulsGrafFrame != null) {
@@ -482,7 +505,8 @@ public class Gui extends javax.swing.JPanel {
     public double getTempMax() {
         return maxTempGr;
     }
-/*metode der returnerer maximumsværdien for pulsmåling*/
+
+    /*metode der returnerer maximumsværdien for pulsmåling*/
     public double getPulsMax() {
         return maxPulsGr;
     }
@@ -491,11 +515,13 @@ public class Gui extends javax.swing.JPanel {
     public double getTempMin() {
         return minTempGr;
     }
-/*metode, der returnerer minimumsværdien for pulsmåling*/
+
+    /*metode, der returnerer minimumsværdien for pulsmåling*/
     public double getPulsMin() {
         return minPulsGr;
     }
-/*Metoder der tjekker hvilken sensor der er tjekket af*/
+
+    /*Metoder der tjekker hvilken sensor der er tjekket af*/
     public boolean isTemp() {
         return tempCheckBox.isSelected();
     }

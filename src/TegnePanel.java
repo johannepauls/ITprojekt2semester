@@ -7,7 +7,7 @@ import javax.swing.*;
 public class TegnePanel extends JPanel {
 
     private final int afstandFraKantTilGraf = 30;
-    private final int afstandPladsTilLabel = 40;
+    private final int afstandPladsTilLabel = 30;
     private final Color linjeFarve = Color.BLUE;
     private final Color prikFarve = Color.BLACK;
     private final Color gridFarve = Color.GRAY;
